@@ -34,3 +34,25 @@ Now find this line:
 …and delete the “#” – leaving the rest, so it just reads:
 net.ipv4.ip_forward=1
 ```
+
+3. enable wifi as hotspot
+
+=> sudo apt install hostapd
+
+=> edit /etc/hostapd/hostapd.conf
+
+```
+country_code=SG
+interface=wlan0
+ssid=Resp_wifi
+hw_mode=g
+channel=7
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=<password>
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
