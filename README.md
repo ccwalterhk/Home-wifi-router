@@ -22,6 +22,7 @@ sudo nano /etc/dnsmasq.conf
 
 interface=<the interface that DHCP to be enabled>
   dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
+  ## 192.168.0.11 - 192.168.0.30 is the DHCP range
 ```
 
 2. enable IP forwarding
