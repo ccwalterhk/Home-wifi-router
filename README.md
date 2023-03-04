@@ -36,7 +36,7 @@ wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 ```
 
-3. Enable the default gateway interface
+3. Enable the IP address of internal interface
 
 ```
 => edit /etc/netplan/50-cloud-init.yaml  and use “netplan apply” to apply. 
