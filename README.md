@@ -77,7 +77,31 @@ interface=<the interface that DHCP to be enabled>
 ```
 
 
+5. Create iptables rule file
 
+```
+edit  /etc/iptables/rules.v4
+
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [18:504]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -i <internal interface> -j ACCEPT
+-A INPUT -i <external interface> -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i <internal>  -o <external> -j ACCEPT
+-A FORWARD -i <external> -o <internal> -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+COMMIT
+
+*nat
+:PREROUTING ACCEPT [1316:308333]
+:INPUT ACCEPT [316:16806]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -o <external> -j MASQUERADE
+COMMIT
+
+```
 
 
 
