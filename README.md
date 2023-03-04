@@ -44,7 +44,7 @@ rsn_pairwise=CCMP
 network:
     ethernets:
         wlan0:
-            addresses: [192.168.2.1/24]
+            addresses: [192.168.x.x/24]
             dhcp4: no
             nameservers:
                     addresses: [8.8.8.8, 8.8.4.4]
