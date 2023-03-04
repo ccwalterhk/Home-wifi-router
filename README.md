@@ -80,7 +80,7 @@ interface=<the interface that DHCP to be enabled>
 5. Create iptables rule file
 
 ```
-edit  /etc/iptables/rules.v4
+=> edit  /etc/iptables/rules.v4
 
 *filter
 :INPUT ACCEPT [0:0]
@@ -100,6 +100,9 @@ COMMIT
 :POSTROUTING ACCEPT [0:0]
 -A POSTROUTING -o <external> -j MASQUERADE
 COMMIT
+
+=> restore the iptable rules
+sudo iptables-restore < /etc/iptables/rules.v4 
 
 ```
 
