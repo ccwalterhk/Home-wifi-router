@@ -2,7 +2,58 @@
 This is to build home broadband / wifi router using Linux and raspberry Pi 
 
 
-1. Enable DHCP on the LAN / wifi Interface
+
+1. enable IP forwarding
+
+```
+sudo nano /etc/sysctl.conf
+Now find this line:
+#net.ipv4.ip_forward=1
+…and delete the “#” – leaving the rest, so it just reads:
+net.ipv4.ip_forward=1
+```
+
+
+2. enable wifi as hotspot
+
+```
+=> sudo apt install hostapd
+
+=> edit /etc/hostapd/hostapd.conf
+
+country_code=SG
+interface=wlan0
+ssid=Resp_wifi
+hw_mode=g
+channel=7
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=<password>
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
+3. Enable the default gateway interface
+
+```
+=> edit /etc/netplan/50-cloud-init.yaml  and use “netplan apply” to apply. 
+
+network:
+    ethernets:
+        wlan0:
+            addresses: [192.168.2.1/24]
+            dhcp4: no
+            nameservers:
+                    addresses: [8.8.8.8, 8.8.4.4]
+            optional: true 
+    version: 2
+    
+```    
+
+4. Enable DHCP on the LAN / wifi Interface
 
 ```
 => Create etc/resolv.conf for DNS resolution 
@@ -25,34 +76,8 @@ interface=<the interface that DHCP to be enabled>
   ## 192.168.0.11 - 192.168.0.30 is the DHCP range
 ```
 
-2. enable IP forwarding
 
-```
-sudo nano /etc/sysctl.conf
-Now find this line:
-#net.ipv4.ip_forward=1
-…and delete the “#” – leaving the rest, so it just reads:
-net.ipv4.ip_forward=1
-```
 
-3. enable wifi as hotspot
 
-```
-=> sudo apt install hostapd
 
-=> edit /etc/hostapd/hostapd.conf
 
-country_code=SG
-interface=wlan0
-ssid=Resp_wifi
-hw_mode=g
-channel=7
-macaddr_acl=0
-auth_algs=1
-ignore_broadcast_ssid=0
-wpa=2
-wpa_passphrase=<password>
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-```
