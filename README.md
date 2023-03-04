@@ -37,11 +37,11 @@ net.ipv4.ip_forward=1
 
 3. enable wifi as hotspot
 
+```
 => sudo apt install hostapd
 
 => edit /etc/hostapd/hostapd.conf
 
-```
 country_code=SG
 interface=wlan0
 ssid=Resp_wifi
