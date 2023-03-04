@@ -14,7 +14,7 @@ net.ipv4.ip_forward=1
 ```
 
 
-2. enable wifi as hotspot
+2. enable wifi  hotspot
 
 ```
 => sudo apt install hostapd
